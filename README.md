@@ -36,11 +36,11 @@ Cependant, l'environnement peut également utilisé en mode déterministe en mod
 
 Pour exécuter les scripts sur le dépôt, vous devez avoir installé :
 
-- **Python** : [Cliquez ici](https://github.com/)
+- **Python** : [Cliquez ici](https://www.python.org/downloads/)
 
-- **Gymnasium** : `python3 -m pip install gymnasium`
+- [**Gymnasium**](https://gymnasium.farama.org/) : `python3 -m pip install gymnasium`
 
-- **Toy_text** : `python3 -m pip install "gymnasium\[toy_text\]"`
+- [**Toy_text**](https://gymnasium.farama.org/environments/toy_text/frozen_lake/) : `python3 -m pip install "gymnasium\[toy_text\]"`
 
 ## Exécution
 
