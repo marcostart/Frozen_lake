@@ -29,7 +29,7 @@ def epsilon_greedy(n_actions, Q, epsilon, s):
             return np.argmax(Q[s, :])
 
 # SARSA Process
-def train_sarsa(env, alpha, gamma, n_max_steps, start_epsilon, min_epsilon, decay_rate, n_episodes, n_states, n_actions): 
+def train_sarsa(env, alpha, gamma, start_epsilon, min_epsilon, decay_rate, n_episodes, n_states, n_actions): 
     """
     alpha: learning rate
     gamma: exploration parameter
@@ -41,10 +41,11 @@ def train_sarsa(env, alpha, gamma, n_max_steps, start_epsilon, min_epsilon, deca
     reward_array = np.zeros(n_episodes)
     for i in range(n_episodes):
             # initial state
-            print("episode :", i)
+            print("episode :", i+1)
             env.reset()
             s= env.s
             epsilon = max(min_epsilon, (start_epsilon - min_epsilon)*np.exp(-decay_rate*i))
+            print("epsilon : ", epsilon)
             # initial action
             a = epsilon_greedy(n_actions, Q, epsilon, s)
             done = False
@@ -79,13 +80,13 @@ print("Action space:", action_space)
 n_actions = env.action_space.n
 n_states = env.observation_space.n
 
-if not os.path.exists('./save_frozen_lake.pkl') :
+if not os.path.exists('./save_frozen_lake_slip.pkl') :
     # SARSA parameters
     alpha = 0.1   # learning rate
     gamma = 0.95  # discount factor
 
     # Training parameters
-    n_episodes = 500000  # number of episodes to use for training
+    n_episodes = 1000000  # number of episodes to use for training
     n_max_steps = 100   # maximum number of steps per episode
 
     # Exploration / Exploitation parameters
@@ -93,15 +94,15 @@ if not os.path.exists('./save_frozen_lake.pkl') :
     min_epsilon = 0.0   # the lowest epsilon allowed to decay to
     decay_rate = 0.00001   # epsilon will gradually decay so we do less exploring and more exploiting as Q-function improves
 
-    Q = train_sarsa(env, alpha, gamma, n_max_steps, start_epsilon, min_epsilon, decay_rate, n_episodes, n_states, n_actions)
-    fd = open('save_frozen_lake.pkl', 'wb')
+    Q = train_sarsa(env, alpha, gamma, start_epsilon, min_epsilon, decay_rate, n_episodes, n_states, n_actions)
+    fd = open('save_frozen_lake_slip.pkl', 'wb')
     pickle.dump(Q, fd, -1)
 
 
 env = gym.make('FrozenLake-v1', desc=None, map_name="8x8", is_slippery=True, render_mode="human")
 
 env.reset()
-saved_fd = open('save_frozen_lake.pkl', 'rb')
+saved_fd = open('save_frozen_lake_slip.pkl', 'rb')
 Q = pickle.load(saved_fd)
 state = env.s
 done = False
@@ -111,14 +112,3 @@ while not done:
     env.render()
     if (truncated):
         done = True
-
-
-# for _ in range(1000):
-
-#     env.render()
-#     action = env.action_space.sample()
-#     observation, reward, terminated, truncated, info = env.step(action)
-#     print(observation, reward, terminated, truncated, info)
-#     if terminated or truncated:
-#         observation, info = env.reset()
-# env.close()
