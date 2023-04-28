@@ -53,7 +53,9 @@ Après avoir cloné le dépôt, vous obtenez 6 fichiers :
 - **frozen_slip.py** : Un fichier python contenant le code dans une version où l'environnement a une surface glissante : (*is_slippery = True*);
 
 - **save_frozen_lake_slip.pkl** : Un fichier contenant des données binaires correspondant à la Q_table obtenue après un entraînement sur *500000 épisodes* avec is_slippery = True;
+
 - **frozen_lake_1: Un fichier contenant des données binaires correspondant à la Q_table obtenue après un entraînement sur *800000 épisodes* avec is_slippery = True;
+
 - **main.py : Un fichier python contenant le code daans une version où l'environnement a une surface non glissante : (*is_slippery = False*) mais utilisation de fonctions 
 
 Ensuite vous ouvrez un terminal dans le dossier contenant les fichiers puis vous changez les droit d'exécution des scripts en faisant : 
@@ -61,6 +63,7 @@ Ensuite vous ouvrez un terminal dans le dossier contenant les fichiers puis vous
 **chmod u+x frozen_slip.py** 
 
 **chmod u+x frozen.py**
+
 **chmod u+x main.py**
 
 Enfin, vous pouvez lançer les scripts directement dans le terminal.
